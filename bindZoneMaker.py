@@ -1,5 +1,8 @@
 #!/bin/python3
 # -*- coding: utf-8 -*-
+#
+#Copyright (c) 2019 WAHED Shah Mohsin
+#This code is under MIT licence, you can find the complete file here: https://github.com/shahwahed/BindZoneMaker/blob/master/LICENSE
 
 import yaml
 import json

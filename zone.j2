@@ -1,3 +1,8 @@
+{#
+Copyright (c) 2019 WAHED Shah Mohsin
+This code is under MIT licence, you can find the complete file here: https://github.com/shahwahed/BindZoneMaker/blob/master/LICENSE
+This jinja2 template generate proper bind zone file
+-#}
 ; Zone: {{ origin }}
 ; Exported  (yyyy-mm-ddThh:mm:ss.sssZ): {{ now }}
 $ORIGIN {{ origin }}
@@ -67,4 +72,3 @@ $TTL {{ ttl }}
 {% endfor %}
 {%- endif %}
 ; End of Zone
-
