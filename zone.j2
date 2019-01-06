@@ -1,0 +1,70 @@
+; Zone: {{ origin }}
+; Exported  (yyyy-mm-ddThh:mm:ss.sssZ): {{ now }}
+$ORIGIN {{ origin }}
+$TTL {{ ttl }}
+
+; SOA Record
+@	IN	SOA	{{ soa['mname'] }} {{ soa['rname'] }}(
+{{ soa['serial'] }} ;serial
+{{ soa['refresh'] }} ;refresh
+{{ soa['retry'] }} ;retry
+{{ soa['expire'] }} ;expire
+{{ soa['minimum'] }} ;minimum ttl
+)
+
+{% if ns is defined -%}
+; NS Records
+{% for entry in ns -%}
+@   IN  NS  {{ entry['host'] }}
+{% endfor %}
+{% endif %}
+{%- if mx is defined -%}
+; MX Records
+{% for entry in mx -%}
+@	IN	MX	{{ entry['preference'] }}    {{ entry['host'] }}
+{% endfor %}
+{% endif %}
+{%- if spf is defined -%}
+; SPF Records
+{% for entry in spf -%}
+{{ entry['domain'] }}	IN	TXT	"{{ entry['record'] }}"
+{% endfor %}
+{% endif %}
+{%- if a is defined -%}
+; A Records
+{% for entry in a -%}
+{{ entry['name'] }}	IN	A	{{ entry['ip'] }}
+{% endfor %}
+{% endif %}
+{%- if aaaa is defined -%}
+; AAAA Records
+{%- for entry in aaaa -%}
+{{ entry['name'] }}	IN	A	{{ entry['ip'] }}
+{% endfor %}
+{% endif %}
+{%- if cname is defined -%}
+; CNAME Records
+{% for entry in cname -%}
+{{ entry['name'] }}	IN	CNAME	{{ entry['alias'] }}
+{% endfor %}
+{% endif %}
+{%- if ptr is defined -%}
+; PTR Records
+{% for entry in ptr -%}
+{{ entry['name'] }}	IN	PTR	"{{ entry['host'] }}"
+{% endfor %}
+{% endif %}
+{%- if txt is defined -%}
+; TXT Records
+{% for entry in txt -%}
+{{ entry['name'] }}	IN	TXT	"{{ entry['txt'] }}"
+{% endfor %}
+{% endif %}
+{%- if srv is defined -%}
+; SRV Records
+{% for entry in srv -%}
+{{ entry['name'] }}	IN	SRV	{{ entry['priority'] }}   {{ entry['weight'] }} {{ entry['port'] }}   {{ entry['target'] }}
+{% endfor %}
+{%- endif %}
+; End of Zone
+
